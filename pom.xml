@@ -48,16 +48,14 @@
 			<plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.5</version>
                 <executions>
                     <!-- Pre-Integration-Test phase: prepare agent for tests -->
                     <execution>
-                        <id>pre-integration-test</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                        <phase>pre-integration-test</phase>
-                    </execution>
+                        </execution>
                     <!-- Post-Integration-Test phase: generate report -->
                     <execution>
                         <id>post-integration-test</id>
