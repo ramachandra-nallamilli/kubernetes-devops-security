@@ -21,7 +21,7 @@ pipeline {
         }
   stage('Docker image Build and Push') {
           steps {
-            withDockerRegistry(url: "", credentialsId: "Docker-Hub"){
+            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'Docker-Hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
             sh 'printenv'
             sh 'docker build -t rnallamilli/numeric-app:""BUIL_ID""'
             sh 'docker push rnallamilli/numeric-app:""BUIL_ID""'
