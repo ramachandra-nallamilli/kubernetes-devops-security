@@ -21,9 +21,11 @@ pipeline {
         }
   stage('Docker image Build and Push') {
           steps {
+            docker.withRegistry(url: "", credentialsId: "Docker-Hub"){
             sh 'printenv'
-            sh 'docker build -t rnallamilli/numeric-app:""GIT_COMMIT""'
-            sh 'docker push rnallamilli/numeric-app:""GIT_COMMIT""'
+            sh 'docker build -t rnallamilli/numeric-app:""BUIL_ID""'
+            sh 'docker push rnallamilli/numeric-app:""BUIL_ID""'
+            }
           }
       }
     }
