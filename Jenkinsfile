@@ -23,6 +23,7 @@ pipeline {
           steps {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'Docker-Hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
             sh 'printenv'
+            sh 'docker login -u $USERNAME -p $PASSWORD'
             sh 'docker build -t rnallamilli/numeric-app:""BUIL_ID""'
             sh 'docker push rnallamilli/numeric-app:""BUIL_ID""'
             }
