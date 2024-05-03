@@ -21,11 +21,15 @@ pipeline {
         }
   stage('Docker image Build and Push') {
           steps {
-            withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId:'Docker-Hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-            sh 'printenv'
-            sh 'docker login -u $USERNAME -p $PASSWORD'
-            sh 'docker build -t rnallamilli/numeric-app:""BUIL_ID""'
-            sh 'docker push rnallamilli/numeric-app:""BUIL_ID""'
+                script {
+            // Login to Docker registry
+                    withDockerRegistry([credentialsId: env.DOCKER_CREDENTIALS_ID, url: env.DOCKER_REGISTRY]) {
+                   docker.build('rnallamilli/numeric-app:""BUIL_ID""')
+                   docker.withRegistry(env.DOCKER_REGISTRY, env.DOCKER_CREDENTIALS_ID) {
+                            docker.image('rnallamilli/numeric-app:""BUIL_ID""').push('latest')
+                   }
+              }
+          
             }
           }
       }
