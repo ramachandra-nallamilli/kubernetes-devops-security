@@ -43,7 +43,7 @@ pipeline {
     stage('Kubernetes Deployment - Dev'){
         steps{
             withKubeConfig([credentialsId: 'kubeconfig']) {
-              sh "sed -i 's#replace#rnallamilli/numeric-app:${BUILD_ID}#g' k8s_deployment_service.yaml"
+              sh "sed -i 's#replace#rnallamilli/numeric-app:latest#g' k8s_deployment_service.yaml"
               sh 'kubectl apply -f k8s_deployment_service.yaml'
             }
         }        
