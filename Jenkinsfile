@@ -22,19 +22,21 @@ pipeline {
               }
             }
         }
-  stage('Docker image Build and Push') {
-          steps {
+  stage('Build and Push Image') {
+            steps {
                 script {
-            // Login to Docker registry
-                    withDockerRegistry([credentialsId: env.Docker-Hub, url: '']) {
-                   docker.build('rnallamilli/numeric-app:""BUIL_ID""')
-                   docker.withRegistry(env.DOCKER_REGISTRY, env.DOCKER_CREDENTIALS_ID) {
+                    // Login to Docker registry
+                    withDockerRegistry([credentialsId: env.DOCKER_CREDENTIALS_ID, url: env.DOCKER_REGISTRY]) {
+                        // Build Docker image
+                        docker.build('rnallamilli/numeric-app:""BUIL_ID""')
+
+                        // Push Docker image
+                        docker.withRegistry(env.DOCKER_REGISTRY, env.DOCKER_CREDENTIALS_ID) {
                             docker.image('rnallamilli/numeric-app:""BUIL_ID""').push('latest')
-                   }
-              }
-          
+                        }
+                    }
+                }
             }
-          }
-      }
+       }
     }
 }
