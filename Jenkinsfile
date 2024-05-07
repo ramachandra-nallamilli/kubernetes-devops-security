@@ -27,7 +27,7 @@ pipeline {
               script {
                   //def buildId = env.BUILD_ID.replaceAll("[^a-zA-Z0-9_.-]", "-")
                   def imageName = "rnallamilli/numeric-app:${BUILD_ID}"
-                  // Login to Docker registry
+                  // 
                   withDockerRegistry([credentialsId: env.DOCKER_CREDENTIALS_ID, url: env.DOCKER_REGISTRY]) {
                       // Build Docker image
                       docker.build(imageName)
